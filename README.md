@@ -18,7 +18,7 @@ $ composer require "minz/laravel-qiniu-dora" -vvv
 
 ## Configuration
 
-1. After installing the library, add the follow code to your `config/app.php` file:
+- 1.After installing the library, add the follow code to your `config/app.php` file:
 
 ```php
 'providers' => [
@@ -34,7 +34,12 @@ $ composer require "minz/laravel-qiniu-dora" -vvv
 
 > Laravel 5.5+ skip
 
-2. Add .env params to your `.env` config:
+- 2.publish config file to your config folder
+```shell
+php artisan vendor:publish --provider="Minz\Laravel\Qiniu\Dora\QiniuDoraServiceProvider"
+```
+
+- 3.Add .env params to your `.env` file
 
 ```shell
 QINIU_ACCESS_KEY=your qiniu access key
