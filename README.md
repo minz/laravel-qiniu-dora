@@ -45,6 +45,7 @@ php artisan vendor:publish --provider="Minz\Laravel\Qiniu\Dora\QiniuDoraServiceP
 QINIU_ACCESS_KEY=your qiniu access key
 QINIU_SECRET_KEY=your qiniu secret key
 QINIU_BUCKET=your qiniu bucket name
+QINIU_PIPELINE=your qiniu pipeline
 ```
 
 ## Usage
@@ -61,7 +62,7 @@ QINIU_BUCKET=your qiniu bucket name
      * @param string $fileKey 存储于bucket中的资源key
      * @param $fops string|array  待处理的pfop操作，多个pfop操作以array的形式传入。
      *                    eg. avthumb/mp3/ab/192k, vframe/jpg/offset/7/w/480/h/360
-     * @param string|null $pipeline 多媒体队列名称
+     * @param string|null $pipeline 多媒体队列名称,默认使用配置文件
      * @param string|null $notifyUrl 回调服务器地址
      * @param bool $force 如果key相同是否强制覆盖object 默认为false
      * @return array (返回持久化处理的persistentId, 返回的错误)
@@ -84,7 +85,7 @@ QINIU_BUCKET=your qiniu bucket name
         "avthumb/mp4/r/15/vb/256k/vcodec/libx264/ab/64k/acodec/libfaac/wmImage/" . base64_encode($imgUrl) . "|saveas/" . base64_encode($videoSaveKey),
         "vframe/jpg/offset/5|saveas/" . base64_encode($pictureSaveKey)
     ];
-    list($id, $err) = Dora::execute($fileKey, $fops, "samaebook-test");    
+    list($id, $err) = Dora::execute($fileKey, $fops);    
 ```
 
 

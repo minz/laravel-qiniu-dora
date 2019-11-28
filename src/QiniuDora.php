@@ -12,14 +12,15 @@ class QiniuDora
     protected $accessKey;
     protected $accessSecret;
     protected $bucket;
-
+    protected $pipeline;
 
     public function __construct()
     {
         $this->accessKey = config('qiniuDora.access_key');
         $this->accessSecret = config('qiniuDora.access_secret');
         $this->bucket = config('qiniuDora.bucket');
-        if (!$this->accessKey || !$this->accessSecret || !$this->bucket) {
+        $this->pipeline = config('qiniuDora.pipeline');
+        if (!$this->accessKey || !$this->accessSecret || !$this->bucket || !$this->pipeline) {
             throw new QiniuDoraException("please config your qiniuDora");
         }
 
@@ -40,6 +41,6 @@ class QiniuDora
      */
     public function execute(string $fileKey, $fops, string $pipeline = null, string $notifyUrl = null, bool $force = false)
     {
-        return $this->persistentFop->execute($this->bucket, $fileKey, $fops, $pipeline, $notifyUrl, $force);
+        return $this->persistentFop->execute($this->bucket, $fileKey, $fops, $pipeline ?? $this->pipeline, $notifyUrl, $force);
     }
 }
